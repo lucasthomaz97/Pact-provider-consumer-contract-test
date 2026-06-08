@@ -1,0 +1,23 @@
+{
+  "name": "pact-provider-consumer",
+  "private": true,
+  "scripts": {
+    "test:consumer": "jest --config jest.config.ts consumer/consumer.spec.ts",
+    "test:provider": "jest --config jest.config.ts provider/provider.spec.ts",
+    "test": "npm run test:consumer && npm run test:provider"
+  },
+  "devDependencies": {
+    "@pact-foundation/pact": "^16.5.0",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "express": "^5.0.1"
+  }
+}
