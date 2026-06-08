@@ -2,7 +2,7 @@ import { PactV3, MatchersV3 } from '@pact-foundation/pact'
 import { describe, it, expect } from 'vitest'
 import { UserClient } from '../src/index'
 
-const {integer, string, like, regex} = MatchersV3;
+const {like, regex} = MatchersV3;
 
 const mockProvider = new PactV3({
     consumer: 'Frontend',
