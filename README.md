@@ -12,9 +12,12 @@ This project demonstrates **Pact contract testing** between a provider and a con
 
 ### Structure
 
-- **provider/** — Express API with a `/users` route (GET `/users`, GET `/users/:id`)
+- **provider/** — Express API with `/users` routes
+  - `src/routes/users.ts` — route handlers
+  - `src/repository/UserRepository.ts` — in-memory data layer
 - **consumer/** — `UserClient` class that consumes the provider's users endpoints
 - **pacts/** — generated Pact contract files
+- **consumer/tests/**, **provider/tests/** — contract tests
 
 ### How it works
 
@@ -43,10 +46,11 @@ npm run test
 
 ### Provider routes
 
-| Method | Route         | Description         |
-|--------|---------------|---------------------|
-| GET    | `/users`      | List all users      |
-| GET    | `/users/:id`  | Get user by ID      |
+| Method | Route         | Description                              |
+|--------|---------------|------------------------------------------|
+| GET    | `/users`      | List all users                           |
+| GET    | `/users/:id`  | Get user by ID                           |
+| POST   | `/users`      | Create user (validates email, uniqueness) |
 
 ---
 
@@ -56,9 +60,12 @@ Este projeto demonstra **testes de contrato Pact** entre um provider e um consum
 
 ### Estrutura
 
-- **provider/** — API Express com rota `/users` (GET `/users`, GET `/users/:id`)
+- **provider/** — API Express com rotas `/users`
+  - `src/routes/users.ts` — handlers das rotas
+  - `src/repository/UserRepository.ts` — camada de dados em memória
 - **consumer/** — Classe `UserClient` que consome os endpoints de usuários do provider
 - **pacts/** — arquivos de contrato Pact gerados
+- **consumer/tests/**, **provider/tests/** — testes de contrato
 
 ### Funcionamento
 
@@ -87,7 +94,8 @@ npm run test
 
 ### Rotas do provider
 
-| Método | Rota          | Descrição            |
-|--------|---------------|----------------------|
-| GET    | `/users`      | Listar todos os usuários |
-| GET    | `/users/:id`  | Buscar usuário por ID |
+| Método | Rota          | Descrição                              |
+|--------|---------------|----------------------------------------|
+| GET    | `/users`      | Listar todos os usuários               |
+| GET    | `/users/:id`  | Buscar usuário por ID                  |
+| POST   | `/users`      | Criar usuário (valida email, unicidade) |
