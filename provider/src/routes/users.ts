@@ -1,8 +1,7 @@
 import { Router, Request, Response } from "express";
-import { UserRepository } from "../repository/UserRepository";
+import { userRepository } from "../repository/UserRepository";
 
 const router = Router();
-const userRepository = new UserRepository();
 
 export interface User {
   id: number;
