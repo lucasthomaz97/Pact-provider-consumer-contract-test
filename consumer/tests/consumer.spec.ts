@@ -12,7 +12,7 @@ const mockProvider = new PactV3({
 describe('UserClient Test', () => {
     it('should search a user', async () => {
         mockProvider
-        .given('user 1 exists')
+        .given('user exists')
         .uponReceiving('a request to get user 1')
         .withRequest({
             method: 'GET',
@@ -40,7 +40,7 @@ describe('UserClient Test', () => {
 
     it('should search all users', async () => {
         mockProvider
-        .given('users exist')
+        .given('contains users')
         .uponReceiving('a request to get all users')
         .withRequest({
             method: 'GET',
@@ -82,6 +82,7 @@ describe('UserClient Test', () => {
 
     it('should return 404 when user is not found', async () => {
         mockProvider
+        .given('user exists')
         .uponReceiving('a request for a missing user')
         .withRequest({
             method: 'GET',
@@ -115,7 +116,7 @@ describe('UserClient Test', () => {
         };
 
         mockProvider
-        .given('creating a user')
+        .given('contains users')
         .uponReceiving('a request to create a new user')
         .withRequest({
             method: 'POST',
@@ -154,7 +155,7 @@ describe('UserClient Test', () => {
         };
 
         mockProvider
-        .given('creating a user with invalid data')
+        .given('contains users')
         .uponReceiving('a request to create a user with invalid data')
         .withRequest({
             method: 'POST',
@@ -188,7 +189,7 @@ describe('UserClient Test', () => {
         };
 
         mockProvider
-        .given('creating a user with an existing email')
+        .given('contains users')
         .uponReceiving('a request to create a user with an existing email')
         .withRequest({
             method: 'POST',
@@ -222,7 +223,7 @@ describe('UserClient Test', () => {
         };
 
         mockProvider
-        .given('creating a user with empty name')
+        .given('contains users')
         .uponReceiving('a request to create a user with empty name')
         .withRequest({
             method: 'POST',
@@ -256,7 +257,7 @@ describe('UserClient Test', () => {
         };
 
         mockProvider
-        .given('creating a user with empty email')
+        .given('contains users')
         .uponReceiving('a request to create a user with empty email')
         .withRequest({
             method: 'POST',

@@ -5,6 +5,11 @@
   "interactions": [
     {
       "description": "a request for a missing user",
+      "providerStates": [
+        {
+          "name": "user exists"
+        }
+      ],
       "request": {
         "method": "GET",
         "path": "/users/777"
@@ -35,7 +40,7 @@
       "description": "a request to create a new user",
       "providerStates": [
         {
-          "name": "creating a user"
+          "name": "contains users"
         }
       ],
       "request": {
@@ -94,7 +99,7 @@
       "description": "a request to create a user with an existing email",
       "providerStates": [
         {
-          "name": "creating a user with an existing email"
+          "name": "contains users"
         }
       ],
       "request": {
@@ -134,7 +139,7 @@
       "description": "a request to create a user with empty email",
       "providerStates": [
         {
-          "name": "creating a user with empty email"
+          "name": "contains users"
         }
       ],
       "request": {
@@ -174,7 +179,7 @@
       "description": "a request to create a user with empty name",
       "providerStates": [
         {
-          "name": "creating a user with empty name"
+          "name": "contains users"
         }
       ],
       "request": {
@@ -214,7 +219,7 @@
       "description": "a request to create a user with invalid data",
       "providerStates": [
         {
-          "name": "creating a user with invalid data"
+          "name": "contains users"
         }
       ],
       "request": {
@@ -254,7 +259,7 @@
       "description": "a request to get all users",
       "providerStates": [
         {
-          "name": "users exist"
+          "name": "contains users"
         }
       ],
       "request": {
@@ -331,7 +336,7 @@
       "description": "a request to get user 1",
       "providerStates": [
         {
-          "name": "user 1 exists"
+          "name": "user exists"
         }
       ],
       "request": {
