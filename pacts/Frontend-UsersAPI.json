@@ -272,11 +272,6 @@
             "email": "lucas.thomaz@example.com",
             "id": 1,
             "name": "Lucas"
-          },
-          {
-            "email": "john.doe@example.com",
-            "id": 2,
-            "name": "John"
           }
         ],
         "headers": {
@@ -288,17 +283,14 @@
               "combine": "AND",
               "matchers": [
                 {
-                  "match": "type"
+                  "match": "type",
+                  "min": 1
                 }
               ]
             },
             "$[*].email": {
               "combine": "AND",
               "matchers": [
-                {
-                  "match": "regex",
-                  "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
-                },
                 {
                   "match": "regex",
                   "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
@@ -310,18 +302,12 @@
               "matchers": [
                 {
                   "match": "type"
-                },
-                {
-                  "match": "type"
                 }
               ]
             },
             "$[*].name": {
               "combine": "AND",
               "matchers": [
-                {
-                  "match": "type"
-                },
                 {
                   "match": "type"
                 }

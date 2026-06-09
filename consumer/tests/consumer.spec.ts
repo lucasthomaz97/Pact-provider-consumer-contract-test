@@ -2,7 +2,7 @@ import { PactV3, MatchersV3 } from '@pact-foundation/pact'
 import { describe, it, expect } from 'vitest'
 import { UserClient } from '../src/index'
 
-const {like, regex} = MatchersV3;
+const {like, eachLike, regex} = MatchersV3;
 
 const mockProvider = new PactV3({
     consumer: 'Frontend',
@@ -48,18 +48,11 @@ describe('UserClient Test', () => {
         })
         .willRespondWith({
             status: 200,
-            body: like([
-                {
-                    id: like(1),
-                    name: like('Lucas'),
-                    email: regex('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', 'lucas.thomaz@example.com')
-                },
-                {
-                    id: like(2),
-                    name: like('John'),
-                    email: regex('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', 'john.doe@example.com')
-                }
-            ])
+            body: eachLike({
+                id: like(1),
+                name: like('Lucas'),
+                email: regex('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', 'lucas.thomaz@example.com')
+            })
         });
 
         await mockProvider.executeTest(async (mockServer) => {
@@ -70,11 +63,6 @@ describe('UserClient Test', () => {
                     id: 1,
                     name: 'Lucas',
                     email: 'lucas.thomaz@example.com'
-                },
-                {
-                    id: 2,
-                    name: 'John',
-                    email: 'john.doe@example.com'
                 }
             ]);
         });
