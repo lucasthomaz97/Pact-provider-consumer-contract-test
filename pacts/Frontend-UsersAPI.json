@@ -4,6 +4,253 @@
   },
   "interactions": [
     {
+      "description": "a request for a missing user",
+      "request": {
+        "method": "GET",
+        "path": "/users/777"
+      },
+      "response": {
+        "body": {
+          "error": "User not found"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.error": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 404
+      }
+    },
+    {
+      "description": "a request to create a new user",
+      "providerStates": [
+        {
+          "name": "creating a user"
+        }
+      ],
+      "request": {
+        "body": {
+          "email": "duquesa.dog@example.com",
+          "name": "Duquesa"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "POST",
+        "path": "/users"
+      },
+      "response": {
+        "body": {
+          "email": "duquesa.dog@example.com",
+          "id": 3,
+          "name": "Duquesa"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.email": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
+                }
+              ]
+            },
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 201
+      }
+    },
+    {
+      "description": "a request to create a user with an existing email",
+      "providerStates": [
+        {
+          "name": "creating a user with an existing email"
+        }
+      ],
+      "request": {
+        "body": {
+          "email": "john.doe@example.com",
+          "name": "Existing User"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "POST",
+        "path": "/users"
+      },
+      "response": {
+        "body": {
+          "error": "User with this email already exists"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.error": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 409
+      }
+    },
+    {
+      "description": "a request to create a user with empty email",
+      "providerStates": [
+        {
+          "name": "creating a user with empty email"
+        }
+      ],
+      "request": {
+        "body": {
+          "email": "",
+          "name": "Test User"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "POST",
+        "path": "/users"
+      },
+      "response": {
+        "body": {
+          "error": "Name and email are required"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.error": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 400
+      }
+    },
+    {
+      "description": "a request to create a user with empty name",
+      "providerStates": [
+        {
+          "name": "creating a user with empty name"
+        }
+      ],
+      "request": {
+        "body": {
+          "email": "test@example.com",
+          "name": ""
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "POST",
+        "path": "/users"
+      },
+      "response": {
+        "body": {
+          "error": "Name and email are required"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.error": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 400
+      }
+    },
+    {
+      "description": "a request to create a user with invalid data",
+      "providerStates": [
+        {
+          "name": "creating a user with invalid data"
+        }
+      ],
+      "request": {
+        "body": {
+          "email": "invalid-email",
+          "name": "Mr Invalid"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "POST",
+        "path": "/users"
+      },
+      "response": {
+        "body": {
+          "error": "Invalid email format"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.error": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 400
+      }
+    },
+    {
       "description": "a request to get all users",
       "providerStates": [
         {
