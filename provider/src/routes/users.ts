@@ -22,6 +22,11 @@ function emailExists(email: string): boolean {
   return users.some((u) => u.email.toLowerCase() === email.toLowerCase());
 }
 
+function isValidEmail(email: string): boolean {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email);
+}
+
 router.get("/users", (_req: Request, res: Response) => {
   res.json(users);
 });
@@ -38,8 +43,13 @@ router.get("/users/:id", (req: Request, res: Response) => {
 router.post("/users", (req: Request<{}, {}, CreateUserInput>, res: Response) => {
   const { name, email } = req.body;
 
-  if (!name || !email) {
+  if (typeof name !== 'string' || typeof email !== 'string' || !name?.trim() || !email?.trim()) {
     res.status(400).json({ error: "Name and email are required" });
+    return;
+  }
+
+  if (!isValidEmail(email) || typeof email !== 'string' || email.length > 255) {
+    res.status(400).json({ error: "Invalid email format" });
     return;
   }
 
