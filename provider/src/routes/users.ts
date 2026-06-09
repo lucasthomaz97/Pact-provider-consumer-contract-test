@@ -1,25 +1,18 @@
 import { Router, Request, Response } from "express";
+import { UserRepository } from "../repository/UserRepository";
 
 const router = Router();
+const userRepository = new UserRepository();
 
-interface User {
+export interface User {
   id: number;
   name: string;
   email: string;
 }
 
-interface CreateUserInput {
+export interface CreateUserInput {
   name: string;
   email: string;
-}
-
-const users: User[] = [
-  { id: 1, name: "Lucas", email: "lucas.thomaz@example.com" },
-  { id: 2, name: "John", email: "john.doe@example.com" },
-];
-
-function emailExists(email: string): boolean {
-  return users.some((u) => u.email.toLowerCase() === email.toLowerCase());
 }
 
 function isValidEmail(email: string): boolean {
@@ -28,11 +21,11 @@ function isValidEmail(email: string): boolean {
 }
 
 router.get("/users", (_req: Request, res: Response) => {
-  res.json(users);
+  res.json(userRepository.findAll());
 });
 
 router.get("/users/:id", (req: Request, res: Response) => {
-  const user = users.find((u) => u.id === Number(req.params.id));
+  const user = userRepository.findById(Number(req.params.id));
   if (!user) {
     res.status(404).json({ error: "User not found" });
     return;
@@ -53,18 +46,12 @@ router.post("/users", (req: Request<{}, {}, CreateUserInput>, res: Response) => 
     return;
   }
 
-  if (emailExists(email)) {
+  if (userRepository.emailExists(email)) {
     res.status(409).json({ error: "Email already exists" });
     return;
   }
 
-  const newUser: User = {
-    id: users.length + 1,
-    name,
-    email,
-  };
-
-  users.push(newUser);
+  const newUser = userRepository.create({ name, email });
   res.status(201).json(newUser);
 });
 
