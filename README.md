@@ -44,6 +44,15 @@ npm run test:provider
 npm run test
 ```
 
+### GitHub Actions
+
+The project includes a CI workflow (`.github/workflows/contract_tests.yml`) that runs on push and pull requests to `main`:
+
+- Sets up Node.js 22 with npm caching
+- Installs dependencies with `npm ci`
+- Runs consumer tests to generate Pact files
+- Runs provider verification against the generated Pact files
+
 ### Provider routes
 
 | Method | Route         | Description                              |
@@ -91,6 +100,15 @@ npm run test:provider
 # Executar ambos
 npm run test
 ```
+
+### GitHub Actions
+
+O projeto inclui um workflow de CI (`.github/workflows/contract_tests.yml`) que roda em push e pull requests para `main`:
+
+- Configura Node.js 22 com cache do npm
+- Instala dependências com `npm ci`
+- Executa testes do consumer para gerar arquivos Pact
+- Executa verificação do provider contra os arquivos Pact gerados
 
 ### Rotas do provider
 
